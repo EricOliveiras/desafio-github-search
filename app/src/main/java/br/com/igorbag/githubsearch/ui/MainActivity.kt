@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<List<Repository>>, t: Throwable) {
-                println("ERROR::")
+                println("ERROR::BAD_REQUEST")
             }
         })
     }
