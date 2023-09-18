@@ -3,4 +3,5 @@
     <string name="nome_usuario">Nome do usuário</string>
     <string name="confirmar">Confirmar</string>
     <string name="share_button">share button</string>
+    <string name="saved_name">saved_name</string>
 </resources>
