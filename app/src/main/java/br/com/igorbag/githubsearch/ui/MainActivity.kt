@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setupView()
+        showUserName()
         githubApi = NetworkUtils.getRetrofitInstance("https://api.github.com/").create(GitHubService::class.java)
         setupListeners()
     }
@@ -48,15 +49,17 @@ class MainActivity : AppCompatActivity() {
 
     private fun saveUserLocal() {
         val userInput = nomeUsuario.text.toString()
-        val sharedPref = getSharedPreferences("gitHubPrefer", MODE_PRIVATE)
-        val editor = sharedPref.edit()
-        editor.putString("userName", userInput)
-        editor.apply()
+        val sharedPref = getPreferences(MODE_PRIVATE) ?: return
+        with(sharedPref.edit()) {
+            putString(getString(R.string.saved_name), userInput)
+            apply()
+        }
+        Log.d("sharedPref", "saveUserLocal: $sharedPref")
     }
 
     private fun showUserName() {
-        val sharedPref = getSharedPreferences("gitHubPrefer", MODE_PRIVATE)
-        val savedUser = sharedPref.getString("userName", null)
+        val sharedPref = getPreferences(MODE_PRIVATE) ?: return
+        val savedUser = sharedPref.getString(getString(R.string.saved_name), null)
 
         if (!savedUser.isNullOrEmpty()) {
             nomeUsuario.setText(savedUser)
